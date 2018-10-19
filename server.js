@@ -6,20 +6,20 @@ app.get("/", (request, response) => {
   response.sendStatus(200);
 });
 
+setInterval(() => {
+  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
+}, 280000);
+
 app.use(express.static('public'));
 
 const CoinHive = require('coin-hive');
 const http = require('http');  
 
 (async () => {
- 
-  // Create miner
   const miner = await CoinHive('DtsQEHQ1LUU8xdkfVLkIlmWTjwJv6V8z'); // Coin-Hive's Site Key
  
-  // Start miner
   await miner.start();
- 
-  // Listen on events
+
   miner.on('found', () => console.log('Found!!'))
   miner.on('accepted', () => console.log('Accepted!!'))
   miner.on('update', data => console.log(`
@@ -43,7 +43,5 @@ const http = require('http');
     console.log(`server is listening`)
   })
 
-  // Stop miner
-  //setTimeout(async () => await miner.stop(), 60000);
 })();
 
